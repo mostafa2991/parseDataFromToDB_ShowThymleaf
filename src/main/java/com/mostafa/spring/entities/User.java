@@ -16,7 +16,7 @@ public class User {
  
 	@Id
 	@Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long clientDealId;
 	private long clientId;
 	private String clientName;
@@ -30,9 +30,8 @@ public class User {
 	public User() {
 	}
 
-	public User(long clientDealId, long clientId, String clientName, long dealId, String dealName, LocalDateTime date,
+	public User( long clientId, String clientName, long dealId, String dealName, LocalDateTime date,
 			int accepted, int refused) {
-		this.clientDealId = clientDealId;
 		this.clientId = clientId;
 		this.clientName = clientName;
 		this.dealId = dealId;

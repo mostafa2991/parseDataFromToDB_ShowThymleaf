@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Save CSV File To DB</title>
+
+    <!--Bootstrap 4-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <h1>Save CSV File To DB</h1>
+            <form method="POST" th:action="@{/upload-csv-file}" enctype="multipart/form-data">
+                <div class="form-group mt-3">
+                    <label for="file">Select a CSV file</label>
+                    <input type="file" name="file" class="form-control-file" id="file" accept=".csv">
+                </div>
+                <button type="submit" class="btn btn-primary">Import</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+          
+            <!--display users list-->
+            <table class="table table-striped" th:if="${status}">
+                <thead>
+                <tr>
+                    <th scope="col">Cleint Deal ID</th>
+                    <th scope="col">Cleint ID</th>
+                    <th scope="col">Cleint Name</th>
+                    <th scope="col">Deal ID</th>
+                    <th scope="col">Deal Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Accepted</th>
+                    <th scope="col">Refuced</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, i : ${users}">
+                    <td th:text="${user.clientDealId}"></td>
+                    <td th:text="${user.clientId}"></td>
+                    <td th:text="${user.clientName}"></td>
+                    <td th:text="${user.dealId}"></td>
+                    <td th:text="${user.dealName}"></td>
+                    <td th:text="${user.date}"></td>
+                    <td th:text="${user.accepted}"></td>
+                    <td th:text="${user.refused}"></td>
+                    
+                </tr>
+                </tbody>
+            </table>
+
+</body>
+</html>

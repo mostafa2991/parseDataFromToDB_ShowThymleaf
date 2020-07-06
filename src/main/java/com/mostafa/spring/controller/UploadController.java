@@ -1,4 +1,4 @@
-package com.mostafa.spring.controller;
+/*  package com.mostafa.spring.controller;
 
 import com.mostafa.spring.entities.User;
 import com.mostafa.spring.entities.UserIn;
@@ -19,20 +19,20 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
 public class UploadController {
 	
-	@Autowired
-	User user;
-	@Autowired
-	UserIn userIn;
+	
 	@Autowired
 	UserRepository userRepository;  
 	
-	List<User> outPutUsers = new ArrayList<>();
-
+	User user = new User();
+	UserIn userIn = new UserIn();
+	 User output;
+	
 	String line = "";
     String cvsSplitBy = ",";
     String[] users;
@@ -59,12 +59,18 @@ public class UploadController {
                 // convert `CsvToBean` object to list of userIn
                 List<UserIn> users = csvToBean.parse();
                 // convert `UserIn` object to list of user
-                List<User> output = convertUserInToUser(users);
+                Iterator<UserIn> iterator = users.iterator();
+                while (iterator.hasNext()) {
+                    output = convertUserInToUser(iterator.next());
+                 // TODO: save users in DB? 
+                    userRepository.save(output);
+                }                	
+				
+            	List<User> outPutUsers = new ArrayList<>();
+            	outPutUsers = userRepository.findAll();
               
-                // TODO: save users in DB?  
-                userRepository.saveAll(output);
                 // save users list on model
-                model.addAttribute("users", output);
+                model.addAttribute("users", outPutUsers);
                 model.addAttribute("status", true);
 
             } catch (Exception ex) {
@@ -77,8 +83,7 @@ public class UploadController {
     }
     
     
-    public List<User> convertUserInToUser(List<UserIn> userin) {
-    	for (UserIn userIn2 : userin) {
+    public User convertUserInToUser(UserIn userIn2) {
     		// convert client from userin to user
     		String clientNameAndId = userIn2.getClient();
         	String[] devideclientNameAndId = clientNameAndId.split("@");
@@ -96,10 +101,7 @@ public class UploadController {
         	user.setAccepted(userIn2.getAccepted());
         	// convert refused from userin to user
         	user.setRefused(userIn2.getRefused());
-        	outPutUsers.add(user);
-		}
-		return outPutUsers;
-    	
+		return user;
     }
     
     private LocalDateTime dateParser(final String dateString) {
@@ -127,7 +129,7 @@ public class UploadController {
 		}
 		return formatCheck;
 	}
-}
+} */
 
 
 
